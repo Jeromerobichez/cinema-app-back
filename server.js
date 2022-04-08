@@ -31,7 +31,7 @@ let secondActor = ''
 let firstActorId = 0
 let secondActorId = 0
 app.post('/api', (req, res) => {
-console.log('lalalala', req.body)
+
 res.send({"Your request is well HERE received : ": req.body})
  firstActor = req.body.nameFirstActor.replace(' ', '+')
 
@@ -46,14 +46,12 @@ secondActor = req.body.nameSecondActor.replace(' ', '+')
         console.log(err);
       })
      firstActorId = reponse.data.results[0].id
-     console.log("firstActorId, firstActorId, firstActorId", firstActorId)
      const secondUrl = `https://api.themoviedb.org/3/search/person?api_key=${api_key}&language=en-US&query=${secondActor}&include_adult=false`
      const rep = await axios(secondUrl).catch(
       (err) => {
         console.log(err);
       })
       secondActorId = rep.data.results[0].id
-      console.log("secondActorId, secondActorId, secondActorId", secondActorId)
     res.send(reponse.data.results) 
   
   }) 
