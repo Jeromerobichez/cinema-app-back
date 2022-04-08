@@ -22,20 +22,34 @@ const port = 5000; // define the port
   method: 'GET'
 } */
 app.use(cors('*'))
-app.listen(port, () => console.log("hello we are listinning"));
+app.listen(port, () => console.log(`hello we are listinning on port number ${port} `));
 app.use(express.static('public'))
 app.use(express.json())
+let yo = ''
 app.post('/api', (req, res) => {
-console.log(req.body)
-res.send({"Your request is well received : ": req.body})
+console.log('lalalala', req.body)
+res.send({"Your request is well HERE received : ": req.body})
+firstActor = req.body.nameFirstActor
+secondActor = req.body.nameSecondActor
+app.get("/api", async (req, res) => {
+  const url = `https://api.themoviedb.org/3/discover/movie?api_key=${api_key}&with_people=${firstActor},${secondActor}&sort_by=vote_average.desc`
+  const reponse = await axios(url).catch(
+    (err) => {
+      console.log(err);
+    })
+   
+  res.send(reponse.data) 
+
 })
 
-/*   app.get('/api', async (req, res)=> {
-    const apiUrl = `https://api.themoviedb.org/3/movie/500?${api_key}`
-    const respuestas = await axios(apiUrl)
-    const jsonR =  await respuestas.json()
-    res.json(jsonR);
-    console.log('yilou', jsonR)
-    
-  })
- */
+
+
+})
+
+
+// doc de l'api : https://developers.themoviedb.org/3
+
+
+
+
+
