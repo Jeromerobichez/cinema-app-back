@@ -30,41 +30,42 @@ let firstActor = ''
 let secondActor = ''
 let firstActorId = 0
 let secondActorId = 0
-app.post('/api', (req, res) => {
+app.post('/api', async (req, res) => {
 
-res.send({"Your request is well HERE received : ": req.body})
+
  firstActor = req.body.nameFirstActor.replace(' ', '+')
 
 
 
 secondActor = req.body.nameSecondActor.replace(' ', '+')
- app.get("/api",
-  async (req, res)=> {
-    const url = `https://api.themoviedb.org/3/search/person?api_key=${api_key}&language=en-US&query=${firstActor}&include_adult=false`
-    const reponse = await axios(url).catch(
-      (err) => {
-        console.log(err);
-      })
-     firstActorId = reponse.data.results[0].id
-     const secondUrl = `https://api.themoviedb.org/3/search/person?api_key=${api_key}&language=en-US&query=${secondActor}&include_adult=false`
-     const rep = await axios(secondUrl).catch(
-      (err) => {
-        console.log(err);
-      })
-      secondActorId = rep.data.results[0].id
-    res.send(reponse.data.results) 
-  
-  }) 
- app.get("/api/coco", async (req, res) => {
-  const url = `https://api.themoviedb.org/3/discover/movie?api_key=${api_key}&with_people=${firstActorId},${secondActorId}&sort_by=vote_average.desc`
-  const reponse = await axios(url).catch(
+const url = `https://api.themoviedb.org/3/search/person?api_key=${api_key}&language=en-US&query=${firstActor}&include_adult=false`
+const secondUrl = `https://api.themoviedb.org/3/search/person?api_key=${api_key}&language=en-US&query=${secondActor}&include_adult=false`
+const reponse = await axios(url).catch(
+  (err) => {
+    console.log(err);
+  })
+
+ firstActorId = reponse.data.results[0].id
+ console.log("firstActorId firstActorId =>",firstActorId )
+ const rep = await axios(secondUrl).catch(
+  (err) => {
+    console.log(err);
+  })
+  secondActorId = rep.data.results[0].id
+  console.log("secondActorId secondActorId ====> ",secondActorId )
+ 
+
+
+
+  const urlId = `https://api.themoviedb.org/3/discover/movie?api_key=${api_key}&with_people=${firstActorId},${secondActorId}&sort_by=vote_average.desc`
+  const filmList = await axios(urlId).catch(
     (err) => {
       console.log(err);
     })
-   
-  res.send(reponse.data) 
+   console.log("filmList.data", filmList.data)
+  res.send(filmList.data.results) 
 
-}) 
+
 
 
 
