@@ -30,6 +30,7 @@ let firstActor = ''
 let secondActor = ''
 let firstActorId = 0
 let secondActorId = 0
+let MyResults = {}
 app.post('/api', async (req, res) => {
 
 
@@ -44,13 +45,14 @@ const reponse = await axios(url).catch(
   (err) => {
     console.log(err);
   })
-
+const picOne = reponse.data.results[0].profile_path
  firstActorId = reponse.data.results[0].id
  console.log("firstActorId firstActorId =>",firstActorId )
  const rep = await axios(secondUrl).catch(
   (err) => {
     console.log(err);
   })
+  const picTwo = rep.data.results[0].profile_path
   secondActorId = rep.data.results[0].id
   console.log("secondActorId secondActorId ====> ",secondActorId )
  
@@ -62,8 +64,9 @@ const reponse = await axios(url).catch(
     (err) => {
       console.log(err);
     })
-   console.log("filmList.data", filmList.data)
-  res.send(filmList.data.results) 
+  MyResults = { results: filmList.data.results, firstPic: picOne, secondPic: picTwo}
+
+  res.send(MyResults) 
 
 
 
