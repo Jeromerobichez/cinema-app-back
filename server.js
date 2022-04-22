@@ -31,6 +31,8 @@ let secondActor = ''
 let firstActorId = 0
 let secondActorId = 0
 let MyResults = {}
+let picOne = 'https://emojipedia-us.s3.amazonaws.com/source/skype/289/question-mark_2753.png'
+let picTwo ="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSKEbQ8upNPjiV8-rF263Ews12oMmJHf4RKwA&usqp=CAU"
 app.post('/api', async (req, res) => {
 
 
@@ -41,32 +43,47 @@ app.post('/api', async (req, res) => {
 secondActor = req.body.nameSecondActor.replace(' ', '+')
 const url = `https://api.themoviedb.org/3/search/person?api_key=${api_key}&language=en-US&query=${firstActor}&include_adult=false`
 const secondUrl = `https://api.themoviedb.org/3/search/person?api_key=${api_key}&language=en-US&query=${secondActor}&include_adult=false`
-const reponse = await axios(url).catch(
+let actor1 = await axios(url).catch(
+  (err) => {
+    console.log("ERREUR n°1", err);
+  })
+ 
+  if (actor1.data.results[0] !== undefined) { 
+ picOne = actor1.data.results[0].profile_path
+ firstActorId = actor1.data.results[0].id }
+
+ 
+
+ let actor2 = await axios(secondUrl).catch(
   (err) => {
     console.log(err);
   })
-const picOne = reponse.data.results[0].profile_path
- firstActorId = reponse.data.results[0].id
- console.log("firstActorId firstActorId =>",firstActorId )
- const rep = await axios(secondUrl).catch(
-  (err) => {
-    console.log(err);
-  })
-  const picTwo = rep.data.results[0].profile_path
-  secondActorId = rep.data.results[0].id
+  if (actor2.data.results[0] !== undefined) {
+   
+  picTwo = actor2.data.results[0].profile_path 
+  secondActorId = actor2.data.results[0].id
+}
   console.log("secondActorId secondActorId ====> ",secondActorId )
  
 
 
 
   const urlId = `https://api.themoviedb.org/3/discover/movie?api_key=${api_key}&with_people=${firstActorId},${secondActorId}&sort_by=vote_average.desc`
-  const filmList = await axios(urlId).catch(
+  
+  let filmList = await axios(urlId).catch(
     (err) => {
       console.log(err);
     })
-  MyResults = { results: filmList.data.results, firstPic: picOne, secondPic: picTwo}
 
+    actor1.data.results[0] === undefined  ? 
+      MyResults = {results:"no data for actor1"} :
+      actor2.data.results[0] === undefined  ?  MyResults = { results: "no data for actor2"} :
+      filmList.data.results.length === 0 ? MyResults = { results: "no common movie", firstPic: picOne, secondPic: picTwo} :
+  MyResults = { results: filmList.data.results, firstPic: picOne, secondPic: picTwo}
+  console.log("MyResults 79", MyResults)
+  console.log("filmList.data.results 79", filmList.data.results)
   res.send(MyResults) 
+  
 
 
 
