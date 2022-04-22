@@ -62,8 +62,7 @@ let actor1 = await axios(url).catch(
    
   picTwo = actor2.data.results[0].profile_path 
   secondActorId = actor2.data.results[0].id
-}
-  console.log("secondActorId secondActorId ====> ",secondActorId )
+
  
 
 
@@ -80,8 +79,7 @@ let actor1 = await axios(url).catch(
       actor2.data.results[0] === undefined  ?  MyResults = { results: "no data for actor2"} :
       filmList.data.results.length === 0 ? MyResults = { results: "no common movie", firstPic: picOne, secondPic: picTwo} :
   MyResults = { results: filmList.data.results, firstPic: picOne, secondPic: picTwo}
-  console.log("MyResults 79", MyResults)
-  console.log("filmList.data.results 79", filmList.data.results)
+
   res.send(MyResults) 
   
 
