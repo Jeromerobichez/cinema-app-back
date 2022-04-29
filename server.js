@@ -25,7 +25,7 @@ app.use(cors('*'))
 app.listen(port, () => console.log(`hello we are listinning on port number ${port} `));
 app.use(express.static('public'))
 app.use(express.json())
-let yo = ''
+
 let firstActor = ''
 let secondActor = ''
 let firstActorId = 0
@@ -34,6 +34,7 @@ let MyResults = {}
 let picOne = 'https://emojipedia-us.s3.amazonaws.com/source/skype/289/question-mark_2753.png'
 let picTwo ="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSKEbQ8upNPjiV8-rF263Ews12oMmJHf4RKwA&usqp=CAU"
 app.post('/api', async (req, res) => {
+  console.log("req.body dans le SERVEUR", req.body)
 
 
  firstActor = req.body.nameFirstActor.replace(' ', '+')
@@ -63,7 +64,7 @@ let actor1 = await axios(url).catch(
   picTwo = actor2.data.results[0].profile_path 
   secondActorId = actor2.data.results[0].id
 
- 
+  }
 
 
 
@@ -88,7 +89,17 @@ let actor1 = await axios(url).catch(
 
 
 })
+app.post('/movie-detail', async (req, res) => {
+  console.log("req cest ", req.body.movieId)
+   const url = `https://api.themoviedb.org/3/movie/${req.body.movieId}?api_key=${api_key}&language=en-US`
+ 
+   let movieDetail = await axios(url).catch(
+    (err) => {
+      console.log(err);
+    })
+    console.log("movieDetail", movieDetail.data)
 
+res.send(movieDetail.data)})
 
 // doc de l'api : https://developers.themoviedb.org/3
 
