@@ -90,8 +90,8 @@ let actor1 = await axios(url).catch(
 
 })
 app.post('/movie-detail', async (req, res) => {
-  console.log("req cest ", req.body.movieId)
-   const url = `https://api.themoviedb.org/3/movie/${req.body.movieId}?api_key=${api_key}&language=en-US`
+  console.log("req cest ", req.body.id)
+   const url = `https://api.themoviedb.org/3/movie/${req.body.id}?api_key=${api_key}&language=en-US`
  
    let movieDetail = await axios(url).catch(
     (err) => {
