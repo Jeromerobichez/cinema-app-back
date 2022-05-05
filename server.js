@@ -34,7 +34,8 @@ let MyResults = {}
 let picOne = 'https://emojipedia-us.s3.amazonaws.com/source/skype/289/question-mark_2753.png'
 let picTwo ="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSKEbQ8upNPjiV8-rF263Ews12oMmJHf4RKwA&usqp=CAU"
 app.post('/api', async (req, res) => {
-  console.log("req.body dans le SERVEUR", req.body)
+
+
 
 
  firstActor = req.body.nameFirstActor.replace(' ', '+')
@@ -80,7 +81,7 @@ let actor1 = await axios(url).catch(
       actor2.data.results[0] === undefined  ?  MyResults = { results: "no data for actor2"} :
       filmList.data.results.length === 0 ? MyResults = { results: "no common movie", firstPic: picOne, secondPic: picTwo} :
   MyResults = { results: filmList.data.results, firstPic: picOne, secondPic: picTwo}
-
+  res.set('Access-Control-Allow-Origin', '*')
   res.send(MyResults) 
   
 
@@ -90,15 +91,15 @@ let actor1 = await axios(url).catch(
 
 })
 app.post('/movie-detail', async (req, res) => {
-  console.log("req cest ", req.body.id)
+
    const url = `https://api.themoviedb.org/3/movie/${req.body.id}?api_key=${api_key}&language=en-US`
  
    let movieDetail = await axios(url).catch(
     (err) => {
       console.log(err);
     })
-    console.log("movieDetail", movieDetail.data)
-
+ 
+    res.set('Access-Control-Allow-Origin', '*')
 res.send(movieDetail.data)})
 
 // doc de l'api : https://developers.themoviedb.org/3
