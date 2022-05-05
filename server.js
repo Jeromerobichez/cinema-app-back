@@ -9,7 +9,7 @@ const { response } = require('express');
 
 const api_key = process.env.api_key // creating the variable api_key in this file from the .env file
 
-const port = 5000; // define the port
+const port = process.env.PORT; // define the port
 
 //below we create the function telling what the server 
 // has to respond for the different URL request by the client
