@@ -38,30 +38,32 @@ let secondActorName = ''
 app.post('/api', async (req, res) => {
 
 
-
+console.log("req.body.nameFirstActor", req.body.nameFirstActor)
 
  firstActor = req.body.nameFirstActor.replace(' ', '+')
- firstActor = req.body.nameFirstActor.replace('é', 'e')
- firstActor = req.body.nameFirstActor.replace('è', 'e')
- firstActor = req.body.nameFirstActor.replace('ï', 'i')
- firstActor = req.body.nameFirstActor.replace('î', 'i')
- firstActor = req.body.nameFirstActor.replace('à', 'a')
- firstActor = req.body.nameFirstActor.replace('ù', 'u')
- firstActor = req.body.nameFirstActor.replace('ç', 'c')
+ firstActor = firstActor.replace('é', 'e')
+ firstActor = firstActor.replace('è', 'e')
+ firstActor = firstActor.replace('ï', 'i')
+ firstActor = firstActor.replace('î', 'i')
+ firstActor = firstActor.replace('ô', 'o')
+ firstActor = firstActor.replace('à', 'a')
+ firstActor = firstActor.replace('ù', 'u')
+ firstActor = firstActor.replace('ç', 'c')
 
- 
+ console.log("firstActor", firstActor)
 
 
 
 
 secondActor = req.body.nameSecondActor.replace(' ', '+')
-secondActor = req.body.nameSecondActor.replace('é', 'e')
-secondActor = req.body.nameSecondActor.replace('è', 'e')
-secondActor = req.body.nameSecondActor.replace('î', 'i')
-secondActor = req.body.nameSecondActor.replace('ï', 'i')
-secondActor = req.body.nameSecondActor.replace('à', 'a')
-secondActor = req.body.nameSecondActor.replace('ù', 'u')
-secondActor = req.body.nameSecondActor.replace('ç', 'c')
+secondActor = secondActor.replace('é', 'e')
+secondActor = secondActor.replace('è', 'e')
+secondActor = secondActor.replace('î', 'i')
+secondActor = secondActor.replace('ï', 'i')
+secondActor = secondActor.replace('ô', 'o')
+secondActor = secondActor.replace('à', 'a')
+secondActor = secondActor.replace('ù', 'u')
+secondActor = secondActor.replace('ç', 'c')
 const url = `https://api.themoviedb.org/3/search/person?api_key=${api_key}&language=en-US&query=${firstActor}&include_adult=false`
 const secondUrl = `https://api.themoviedb.org/3/search/person?api_key=${api_key}&language=en-US&query=${secondActor}&include_adult=false`
 let actor1 = await axios(url).catch(
