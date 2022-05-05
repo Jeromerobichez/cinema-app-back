@@ -21,7 +21,7 @@ const port = process.env.PORT; // define the port
   path: `/movie/500?${api_key}`,
   method: 'GET'
 } */
-app.use(cors('*'))
+/* app.use(cors('*')) */
 app.listen(port, () => console.log(`hello we are listinning on port number ${port} `));
 app.use(express.static('public'))
 app.use(express.json())
