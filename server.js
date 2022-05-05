@@ -33,6 +33,8 @@ let secondActorId = 0
 let MyResults = {}
 let picOne = 'https://emojipedia-us.s3.amazonaws.com/source/skype/289/question-mark_2753.png'
 let picTwo ="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSKEbQ8upNPjiV8-rF263Ews12oMmJHf4RKwA&usqp=CAU"
+let firstActorName = ''
+let secondActorName = ''
 app.post('/api', async (req, res) => {
 
 
@@ -53,6 +55,7 @@ let actor1 = await axios(url).catch(
   if (actor1.data.results[0] !== undefined) { 
  picOne = actor1.data.results[0].profile_path
  firstActorId = actor1.data.results[0].id }
+ firstActorName = actor1.data.results[0].name
 
  
 
@@ -64,6 +67,7 @@ let actor1 = await axios(url).catch(
    
   picTwo = actor2.data.results[0].profile_path 
   secondActorId = actor2.data.results[0].id
+  secondActorName = actor2.data.results[0].name
 
   }
 
@@ -80,7 +84,7 @@ let actor1 = await axios(url).catch(
       MyResults = {results:"no data for actor1"} :
       actor2.data.results[0] === undefined  ?  MyResults = { results: "no data for actor2"} :
       filmList.data.results.length === 0 ? MyResults = { results: "no common movie", firstPic: picOne, secondPic: picTwo} :
-  MyResults = { results: filmList.data.results, firstPic: picOne, secondPic: picTwo}
+  MyResults = { results: filmList.data.results, firstPic: picOne, secondPic: picTwo, nameActorOne: firstActorName, nameActorTwo: secondActorName}
   res.set('Access-Control-Allow-Origin', '*')
   res.send(MyResults) 
   
