@@ -103,7 +103,7 @@ let actor1 = await axios(url).catch(
     actor1.data.results[0] === undefined  ? 
       MyResults = {results:"no data for actor1"} :
       actor2.data.results[0] === undefined  ?  MyResults = { results: "no data for actor2"} :
-      filmList.data.results.length === 0 ? MyResults = { results: "no common movie", firstPic: picOne, secondPic: picTwo} :
+      filmList.data.results.length === 0 ? MyResults = { results: "no common movie", firstPic: picOne, secondPic: picTwo, nameActorOne: firstActorName, nameActorTwo: secondActorName} :
   MyResults = { results: filmList.data.results, firstPic: picOne, secondPic: picTwo, nameActorOne: firstActorName, nameActorTwo: secondActorName}
   res.set('Access-Control-Allow-Origin', '*')
   res.send(MyResults) 
