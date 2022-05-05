@@ -42,11 +42,26 @@ app.post('/api', async (req, res) => {
 
  firstActor = req.body.nameFirstActor.replace(' ', '+')
  firstActor = req.body.nameFirstActor.replace('é', 'e')
+ firstActor = req.body.nameFirstActor.replace('è', 'e')
+ firstActor = req.body.nameFirstActor.replace('ï', 'i')
+ firstActor = req.body.nameFirstActor.replace('î', 'i')
+ firstActor = req.body.nameFirstActor.replace('à', 'a')
+ firstActor = req.body.nameFirstActor.replace('ù', 'u')
+ firstActor = req.body.nameFirstActor.replace('ç', 'c')
+
+ 
+
 
 
 
 secondActor = req.body.nameSecondActor.replace(' ', '+')
 secondActor = req.body.nameSecondActor.replace('é', 'e')
+secondActor = req.body.nameSecondActor.replace('è', 'e')
+secondActor = req.body.nameSecondActor.replace('î', 'i')
+secondActor = req.body.nameSecondActor.replace('ï', 'i')
+secondActor = req.body.nameSecondActor.replace('à', 'a')
+secondActor = req.body.nameSecondActor.replace('ù', 'u')
+secondActor = req.body.nameSecondActor.replace('ç', 'c')
 const url = `https://api.themoviedb.org/3/search/person?api_key=${api_key}&language=en-US&query=${firstActor}&include_adult=false`
 const secondUrl = `https://api.themoviedb.org/3/search/person?api_key=${api_key}&language=en-US&query=${secondActor}&include_adult=false`
 let actor1 = await axios(url).catch(
