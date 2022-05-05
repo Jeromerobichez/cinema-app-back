@@ -54,8 +54,9 @@ let actor1 = await axios(url).catch(
  
   if (actor1.data.results[0] !== undefined) { 
  picOne = actor1.data.results[0].profile_path
- firstActorId = actor1.data.results[0].id }
- firstActorName = actor1.data.results[0].name
+ firstActorId = actor1.data.results[0].id
+ firstActorName = actor1.data.results[0].name }
+
 
  
 
