@@ -37,9 +37,6 @@ let firstActorName = ''
 let secondActorName = ''
 app.post('/api', async (req, res) => {
 
-
-console.log("req.body.nameFirstActor", req.body.nameFirstActor)
-
  firstActor = req.body.nameFirstActor.replace(' ', '+')
  firstActor = firstActor.replace('é', 'e')
  firstActor = firstActor.replace('è', 'e')
@@ -50,11 +47,6 @@ console.log("req.body.nameFirstActor", req.body.nameFirstActor)
  firstActor = firstActor.replace('ù', 'u')
  firstActor = firstActor.replace('ç', 'c')
 
- console.log("firstActor", firstActor)
-
-
-
-
 secondActor = req.body.nameSecondActor.replace(' ', '+')
 secondActor = secondActor.replace('é', 'e')
 secondActor = secondActor.replace('è', 'e')
@@ -64,6 +56,7 @@ secondActor = secondActor.replace('ô', 'o')
 secondActor = secondActor.replace('à', 'a')
 secondActor = secondActor.replace('ù', 'u')
 secondActor = secondActor.replace('ç', 'c')
+
 const url = `https://api.themoviedb.org/3/search/person?api_key=${api_key}&language=en-US&query=${firstActor}&include_adult=false`
 const secondUrl = `https://api.themoviedb.org/3/search/person?api_key=${api_key}&language=en-US&query=${secondActor}&include_adult=false`
 let actor1 = await axios(url).catch(
