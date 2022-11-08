@@ -6,6 +6,7 @@ const app = express();
 const cors = require('cors')
 const axios = require('axios');
 const { response } = require('express');
+const { log } = require('console');
 
 const api_key = process.env.api_key // creating the variable api_key in this file from the .env file
 
@@ -118,6 +119,31 @@ app.post('/movie-detail', async (req, res) => {
  
     res.set('Access-Control-Allow-Origin', '*')
 res.send(movieDetail.data)})
+
+app.post('/populars', async (req, res) =>{
+  const url = `https://api.themoviedb.org/3/person/popular?api_key=${api_key}&language=en-US&page=${req.body.page}`
+  console.log("req req", req.body)
+  let popular
+    await axios.get(url)
+    .then(res => {
+      popular = res.data.results
+
+     })
+     .catch(e => {
+       console.log("erreur catché", e.message)
+     })
+     res.set('Access-Control-Allow-Origin', '*')
+     res.send(popular)
+   
+    }
+ /*  let populars = await axios(url).catch(
+    (err) => {
+      console.log("erreur in populars post => ", err);
+    }
+  )
+  console.log("populars", populars.data)
+ 
+} */)
 
 // doc de l'api : https://developers.themoviedb.org/3
 
